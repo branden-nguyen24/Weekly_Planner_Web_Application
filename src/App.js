@@ -2,8 +2,9 @@ import './App.css';
 import Todo from './components/Todo/Todo'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import TaskList from './components/TaskList'
+import Week from './components/Week'
 import RideYourWave from './rideCrop.gif'
+
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
           <Header />
           <hr style={{color:"#bd9f8f", height:5, margin:50}}/>
           <div className="homepage" style={homepageStyle}>
-            <Todo TaskList={TaskList}/>
+            <Todo Week={Week}/>
           </div>
           
           <Footer />

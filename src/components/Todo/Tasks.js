@@ -6,27 +6,28 @@ import AddTaskField from './addTasks'
 const Tasks = ({ TaskList, addTask }) => {
 
     const [addButton, setAddButton] = useState(false);
-    const onClick = () => {
+
+    const onClick = () => {                                             // this function is if the "add new task" button is pushed            
         setAddButton(!addButton);
     }
 
-    const addTaskMiddleware = (event) => {
+    const addTaskMiddleware = (event) => {                              // turns off the "add new task" field once a task is added                     
         setAddButton(false)
         addTask(event);
     }
 
     return (                                            // returns each individual task
         <div style={{ gridColumn: "1/span2" }}>
-            <div style={{
-                display: "grid",
-                gridTemplateColumns: "50px 1fr",
 
-            }}>
+            <div style={{ opacity: "50%" }} onClick={onClick}>
+                + new task
             </div>
-            <div style={{opacity:"50%"}} onClick={onClick}>+ Add Task</div>
-            {TaskList.map((task) => (<Task job={task}  />))}
-            {addButton && <AddTaskField TaskList={TaskList} setTaskList={addTaskMiddleware}/>}
-            
+
+            {TaskList.map((task) => (<Task key={Date.now()} job={task} />))}
+
+            {addButton && <AddTaskField TaskList={TaskList} setTaskList={addTaskMiddleware} />}
+
+
         </div>
     )
 }
