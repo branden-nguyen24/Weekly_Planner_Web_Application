@@ -1,61 +1,32 @@
 import React from 'react'
 import { useState } from 'react'
 import Task from './Task'
-import TaskList from '../TaskList'
+import AddTaskField from './addTasks'
 
-const Tasks = () => {
+const Tasks = ({ TaskList, addTask }) => {
 
-
-    const [task, setTasks] = useState(TaskList);
-
-    const [word, setWord] = useState("");
-
-    // const tasks = [
-    //     {
-    //         job: "finish checkboxes"
-    //     }
-    // ]
-
-    const addTask = () => {
-
+    const [addButton, setAddButton] = useState(false);
+    const onClick = () => {
+        setAddButton(!addButton);
     }
 
-    const onChange = (event) => {
-        //word = event.target.value
-        setWord(event.target.value);
+    const addTaskMiddleware = (event) => {
+        setAddButton(false)
+        addTask(event);
     }
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-        TaskList.push({
-            job: event.target.job.value
-        })
+    return (                                            // returns each individual task
+        <div style={{ gridColumn: "1/span2" }}>
+            <div style={{
+                display: "grid",
+                gridTemplateColumns: "50px 1fr",
 
-        setTasks(... task, event.target.job.value);
-        console.log(TaskList)
-        event.target.job.value = "";
-
-    }
-
-    const [count, setCount] = useState(["hello"]);
-
-    return (
-        <div>
-            {TaskList.map((task) => ( <Task job={task.job} /> ))}
-            <br/>
-            <h6>Add task</h6>
-            <div className="addClass">
-                <button onClick={() => {
-                    setCount(count.push())
-                    console.log(count)}} />
-                    {word}
-                <form onSubmit={onSubmit} >
-                    <label>Task Name: </label>
-                    <input type="text" name="job" onChange={onChange} />
-                    <input type="submit" />
-                    
-                </form>
+            }}>
             </div>
+            <div style={{opacity:"50%"}} onClick={onClick}>+ Add Task</div>
+            {TaskList.map((task) => (<Task job={task}  />))}
+            {addButton && <AddTaskField TaskList={TaskList} setTaskList={addTaskMiddleware}/>}
+            
         </div>
     )
 }

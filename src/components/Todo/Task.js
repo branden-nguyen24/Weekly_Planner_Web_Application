@@ -1,11 +1,28 @@
 import React from 'react'
-import Tasks from './Tasks'
+import {useState} from 'react'
 
-const Task = (props) => {
+const Task = ({job,date}) => {
+    
+    const taskStyle = {
+        display: "grid",
+        gridTemplateColumns: "50px 10rem",
+        textAlign: "left",
+        
+    }
+
+    const[check,setCheck] = useState(false);
+
+    const onChange = () =>{
+        setCheck(!check)
+    }
+
     return (
-        <div>
-            <input type="checkbox" />
-            <label id="done">{props.job}</label>
+        <div style={taskStyle}>
+            <input type="checkbox" onChange={onChange} style={{marginLeft: 15, marginTop:6 }}/>
+            <label style={{alignSelf: "center"}}>
+                {check ? (<strike style={{opacity:"50%"}}>{job}</strike>) : job}
+            </label>
+
         </div>
     )
 }

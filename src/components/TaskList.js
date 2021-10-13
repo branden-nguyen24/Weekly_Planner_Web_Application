@@ -1,6 +1,13 @@
 const tasks = [
     {
-        job: "finish checkboxes"
+        job: "finish checkboxes",
+        done: false,
+
+    },
+    {
+        job: "finish others",
+        done: false,
+
     }
 ]
 

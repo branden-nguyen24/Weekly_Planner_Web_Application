@@ -2,8 +2,8 @@ import React from 'react'
 
 const Header = () => {
     return (
-        <div>
-            <h1>This is the Header</h1>
+        <div style={{margin: "50px", }}>
+            <h1><b>Chris's Homepage</b></h1>
         </div>
     )
 }

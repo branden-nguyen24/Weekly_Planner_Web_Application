@@ -1,28 +1,12 @@
-.App {
-  text-align: center;
-  
-  margin: 15px;
-}
 
-.homepage {         /* this is to stylize homepage into a grid */
-  display: grid;
-  margin-top: 250px;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 250px 250px;
-  grid-gap: 10px;
-}
 
-.todo {
-  grid-row: 1 / span 2;
-}
-
-.container {      /* this is to stylize individual segments */
-  border: 2px solid black;
-  border-radius: 5px;
+.App {      
+  font-family: sans-serif;
 }
 
 .footer {
   position: fixed;
   bottom: 0;
   justify-content: bottom;
+
 }
