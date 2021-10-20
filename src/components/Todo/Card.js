@@ -1,37 +1,31 @@
 import React from 'react'
-import { useState } from 'react'
 import Tasks from './Tasks'
+import { connect } from 'react-redux'
 
-const Card = ({ dayOfWeek, colora, taskList, }) => {
+
+const Card = (props) => {
 
     const cardStyle = {             // set the minimum height for the card
         minHeight: "250px",
     }
 
-    const [tasks, setTasks] = useState(taskList)
-
-    const addTask = (event) => {                    // add task to a card
-        event.preventDefault();
-
-        if (event.target.job.value) {
-            const task = event.target.job.value
-            event.target.job.value = "";
-            setTasks([...tasks, task]);
-        }
-    }
 
     return (
-        <div style={cardStyle}>
+        <div id={props.id} style={cardStyle}>
 
-            <div style={{ backgroundColor: colora, margin: 15, textAlign:"left" }}>
-                <b style={{margin:8}}>{dayOfWeek}</b>
+            <div id={props.id*2} style={{ backgroundColor: props.week.color , margin: 15, textAlign: "left" }}>
+                <b style={{ margin: 8 }}>{props.week.name}</b>
             </div>
 
-            <hr style={{ margin: 15, marginBottom:8 }} />
+            <hr style={{ margin: 15, marginBottom: 8 }} />
 
-            <Tasks TaskList={tasks} addTask={addTask} />
+            <Tasks id={props.id} />
         </div>
     )
 }
+const mapStateToProps = (state,ownProps) => {
+    const { id } = ownProps;
+    return { week: state.addDelete.items[id] }
+}
 
-export default Card
+export default connect(mapStateToProps)(Card);

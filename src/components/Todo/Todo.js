@@ -1,8 +1,9 @@
 import React from 'react'
 import Card from './Card'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { connect } from 'react-redux'
 
-const Todo = ({ Week }) => {
+const Todo = (props) => {
 
     const todoStyle = {                             // style sheet for the week cards
         display: "grid",
@@ -11,17 +12,21 @@ const Todo = ({ Week }) => {
         maxWidth: "100%"
     }
 
-    return (
 
+    return (
         <div style={{ textAlign: "center", marginLeft: 50, marginRight: 50 }}>
             <div className="container-fluid todo" style={todoStyle}>
 
-                {Week.map((day) => <Card key={day.key} dayOfWeek={day.name} colora={day.color} taskList={day.tasks} />)}
-
+                {props.week.map((day) => <Card key={day.key} id={day.key} />)}
             </div>
         </div>
 
     )
 }
 
-export default Todo
+const mapStateToProps = (state) => {
+
+    return { week: state.addDelete.items }
+}
+
+export default connect(mapStateToProps)(Todo)

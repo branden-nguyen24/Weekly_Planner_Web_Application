@@ -2,19 +2,20 @@ import React from 'react'
 import { useState } from 'react'
 import Task from './Task'
 import AddTaskField from './addTasks'
+import { connect } from 'react-redux'
 
-const Tasks = ({ TaskList, addTask }) => {
+const Tasks = (props) => {
 
     const [addButton, setAddButton] = useState(false);
 
-    const onClick = () => {                                             // this function is if the "add new task" button is pushed            
+    const onClick = () => {                                             // this function is if the "add new task" button is pushed       
         setAddButton(!addButton);
     }
 
-    const addTaskMiddleware = (event) => {                              // turns off the "add new task" field once a task is added                     
+    const addTaskMiddleware = () => {                              // turns off the "add new task" field once a task is added                     
         setAddButton(false)
-        addTask(event);
     }
+
 
     return (                                            // returns each individual task
         <div style={{ gridColumn: "1/span2" }}>
@@ -23,13 +24,16 @@ const Tasks = ({ TaskList, addTask }) => {
                 + new task
             </div>
 
-            {TaskList.map((task) => (<Task key={Date.now()} job={task} />))}
+            {props.tasks.map((task) => (<Task key={props.id*Math.random()} job={task.taskName} taskId={task.id} id={props.id}/>))}
 
-            {addButton && <AddTaskField TaskList={TaskList} setTaskList={addTaskMiddleware} />}
-
-
+            {addButton && <AddTaskField id={props.id} addTaskMiddleware={addTaskMiddleware}/>}
         </div>
     )
 }
+const mapStateToProps = (state,ownProps) => {
 
-export default Tasks
+    const { id } = ownProps;
+    return { tasks: state.addDelete.items[id].tasks }
+}
+
+export default connect(mapStateToProps)(Tasks);
