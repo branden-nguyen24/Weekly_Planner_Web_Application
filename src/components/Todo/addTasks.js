@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
 import {listAdd} from '../../redux/actions/listActions'
 
@@ -11,8 +10,6 @@ const AddTasks = (props) => {
         gridTemplateColumns: "50px 150px",
         textAlign: "left",
     }
-
-    const dispatch = useDispatch();
     
     const onSubmit = (event) => {                              // turns off the "add new task" field once a task is added                     
         event.preventDefault();
@@ -20,7 +17,7 @@ const AddTasks = (props) => {
             const task = event.target.job.value;
             event.target.job.value = "";
             const taskId = Math.random() * 100000 + 10000;
-            dispatch(listAdd(task, taskId, props.id))
+            props.add(task, taskId, props.id)
         }
         props.addTaskMiddleware();
     }
@@ -41,7 +38,7 @@ const AddTasks = (props) => {
 const mapDispatchtoProps = (dispatch) => {
     console.log("Map Dispatch is called")
     return {
-        add: (job, dayOfWeek) => dispatch(listAdd(job, dayOfWeek)),
+        add: (job, taskId, dayOfWeek) => dispatch(listAdd(job, taskId, dayOfWeek)),
     }
 }
 

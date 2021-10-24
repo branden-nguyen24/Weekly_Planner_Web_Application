@@ -2,7 +2,7 @@ import React from 'react'
 import { useState,  } from 'react'
 import { BsX } from 'react-icons/bs'
 import { deleteTask } from '../../redux/actions/listActions'
-import { useDispatch, connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 const Task = (props) => {
 
@@ -20,8 +20,6 @@ const Task = (props) => {
         setCheck(!check);
     }
 
-    const dispatch = useDispatch();
-
     return (
         <div style={taskStyle}>
             <input type="checkbox" onChange={onChange} style={{ marginLeft: 15, marginTop: 6 }} />
@@ -33,18 +31,16 @@ const Task = (props) => {
             <BsX onMouseEnter={() => { setHover(true) }}
                 onMouseLeave={() => setHover(false)}
                 style={hover ? { alignSelf: "center", opacity: "100%" } : { opacity: "0%" }}
-                onClick={() => dispatch(deleteTask(props.job, props.taskId, props.id))
+                onClick={() => props.delete(props.job, props.taskId, props.id)
                 } />
         </div>
     )
 }
 
 
-// style:
 const mapDispatchtoProps = (dispatch) => {
-    console.log("Map Dispatch is called")
     return {
-        delete: (job, dayOfWeek) => dispatch(deleteTask(job, dayOfWeek)),
+        delete: (job, taskId, dayOfWeek) => dispatch(deleteTask(job, taskId, dayOfWeek)),
     }
 }
 
