@@ -1,10 +1,10 @@
 import React from 'react'
-import axios from 'axios'
 import { useState } from 'react'
 import { login } from '../../redux/actions/loginAction'
+import { resetTask} from '../../redux/actions/listActions'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const LoginForm = (props) => {
@@ -32,21 +32,25 @@ const LoginForm = (props) => {
 
         const userTester = username;
         const passwordTester = password;
-        axios.get(`/api/login?username=${userTester}&password=${passwordTester}`)
-            .then((response) => {
-                if (response.data) {
-                    props.login(userTester, response.data, passwordTester);
-                    history.push('/')
-                } else {
-                    toast.warn('username and/or password was incorrect',{position: toast.POSITION.TOP_CENTER})
-                }
-            })
-            
+
+        props.login(userTester, passwordTester);
+
+        
+
+
+
+        //             history.push('/')                    do this all in the middleware
+        //         } else {
+        //             console.log("WRONG")
+        //             toast.warn('username and/or password was incorrect',{position: toast.POSITION.TOP_CENTER})
+
         event.target.username.value = ""
         event.target.password.value = ""
         setUsername("");
         setPassword("");
     }
+
+
 
     return (
         <div>
@@ -63,8 +67,15 @@ const LoginForm = (props) => {
 
 const mapDispatchtoProps = (dispatch) => {
     return {
-        login: (username, name, password) => dispatch(login(username, name, password)),
+        login: (username, password) => dispatch(login(username, password)),
+        reset: () => dispatch(resetTask()),
     }
 }
 
-export default connect(null, mapDispatchtoProps)(LoginForm)
+const mapStatetoProps = (state) => {
+    return {
+        name: state.login.name
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(LoginForm)

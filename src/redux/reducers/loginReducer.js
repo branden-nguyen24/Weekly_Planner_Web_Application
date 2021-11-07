@@ -6,15 +6,15 @@ const INITIAL_STATE = {
 
 const loginReducer = (state = INITIAL_STATE, action ) => {
     switch(action.type) {
-        case "login":
+        case "LOGIN":
             return {
                 ...state,
                 username: action.username,
                 name: action.name, 
                 password: action.password
             };
-        case "logOut":
-            console.log("Logging user out");
+        case "LOGOUT":
+            console.log("REDUCER: LOG OUT");
             return {
                 ...state,
                 username: "",

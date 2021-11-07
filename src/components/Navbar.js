@@ -5,7 +5,11 @@ import RideYourWave from '../../src/rideCrop.gif'
 import { BsX, BsList } from "react-icons/bs"
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {logOut} from '../redux/actions/loginAction'
+import { logOut } from '../redux/actions/loginAction'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useHistory } from 'react-router-dom'
+import {resetTask} from '../redux/actions/listActions'
 
 const Sidebar = (props) => {
 
@@ -35,6 +39,16 @@ const Sidebar = (props) => {
         alignItems: "center"
     }
 
+    const history = useHistory();
+
+    const handleLogOut = () => {                            // could try to compact this all
+        props.logOut();
+        onClick();
+        props.reset();
+        history.push('/login');
+        toast.warn('logged out', { position: toast.POSITION.TOP_CENTER });
+    }
+
     return (
         <div >
             <img src={RideYourWave} alt="Logo" style={{ width: "100%", display: "block" }} />
@@ -48,11 +62,8 @@ const Sidebar = (props) => {
                 <div style={{ margin: 15, cursor: "pointer" }}>
                     {!props.loggedIn
                         ? <Link to='/login' onClick={onClick} style={{ color: "black", fontSize: "25px", textDecoration: "none" }}>login</Link>
-                        : <Link to='/login' onClick={() => { onClick(); props.logOut() }} style={{ color: "black", fontSize: "25px", textDecoration: "none" }}>log out</Link>
-
-                
-            }
-
+                        : <div onClick={handleLogOut} style={{ color: "black", fontSize: "25px", textDecoration: "none" }}>log out</div>
+                    }
 
                 </div>
                 <div style={{ margin: 15, cursor: "pointer" }}>
@@ -73,7 +84,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logOut: () => dispatch(logOut())
+        logOut: () => dispatch(logOut()),
+        reset: () => dispatch(resetTask())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)

@@ -1,71 +1,11 @@
-const INITIAL_STATE = {items: [
-    {
-        name: "week goals",
-        color: "white",
-        tasks: [
-        ],
-        key: 0
-    },
-    {
-        name: "monday",
-        color: "#D5DDE5",
-        tasks: [
-        ],
-        key: 1
-    },
-    {
-        name: "tuesday",
-        color: "#FFEBE1",
-        tasks: [
-        ],
-        key: 2
-    },
-    {
-        name: "wednesday",
-        color: "#FFF7E7",
-        tasks: [
-
-        ],
-        key: 3
-    },
-    {
-        name: "thursday",
-        color: "#E9F4E6",
-        tasks: [
-
-        ],
-        key: 4
-    },
-    {
-        name: "friday",
-        color: "#E4F2FA",
-        tasks: [
-
-        ],
-        key: 5
-    },
-    {
-        name: "saturday",
-        color: "#F7EEFD",
-        tasks: [
-
-        ],
-        key: 6
-    },
-    {
-        name: "sunday",
-        color: "#FEE9F2",
-        tasks: [
-
-        ],
-        key: 7
-    }
-]}
+const INITIAL_STATE = {
+    items: []
+}
 
 const addDeleteReducer = (state = INITIAL_STATE, action) => {
-
     switch (action.type) {
-        case "add":
+        case "ADD":
+            console.log(state)
             const newState = state.items;
             const newTask = {
                 taskName: action.newTask,
@@ -79,7 +19,7 @@ const addDeleteReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state, items: newState
             };
-        case "delete": 
+        case "DELETE":
             const new2 = state.items;
             new2.forEach((day) => {
                 if (day.key === action.id) {
@@ -89,6 +29,16 @@ const addDeleteReducer = (state = INITIAL_STATE, action) => {
             })
             return {
                 ...state, items: new2
+            }
+        case "USER_WEEK":
+            return {
+                ...state, items: action.items
+            };
+        case "DEFAULT_WEEK":                       
+            console.log("REDUCER: RESETTING TO DEFAULT SETTINGS")
+            console.log(INITIAL_STATE);
+            return {
+                ...state, items: action.payload
             }
         default:
             return state;

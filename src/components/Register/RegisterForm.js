@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import {useDispatch} from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { registerUser } from '../../redux/actions/registerActions'
 
 const RegisterForm = () => {
 
@@ -21,6 +23,7 @@ const RegisterForm = () => {
 
     toast.configure();
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -31,16 +34,7 @@ const RegisterForm = () => {
         } else if(username.indexOf(' ') > 0) {
             toast.warn('username can not have any spaces', { position: toast.POSITION.TOP_CENTER })
         } else {
-            axios.post(`/api/register?name=${name}&username=${username}&password=${password}`)
-                .then((response) => {
-                    if (response.data) {
-                        console.log("new user created")
-                        history.push("/login")
-                    } else {
-                        console.log("username is taken")
-                        toast.warn('username is already taken', { position: toast.POSITION.TOP_CENTER })
-                    }
-                })
+            dispatch(registerUser(name,username,password))
         }
     }
 
@@ -56,7 +50,7 @@ const RegisterForm = () => {
                 <input type="password" required name="password" onChange={(event) => setPassword(event.target.value)}></input>
                 <label name="conPassword">Confirm Password: </label>
                 <input type="password" required name="conPassword" onChange={(event) => setConPassword(event.target.value)}></input>
-                <button type="cancel" style={{ gridColumn: "1", width: 100, justifySelf: "left", border: "3px" }} value="Cancel"> Cancel </button>
+                <input type="submit" style={{ gridColumn: "1", width: 100, justifySelf: "left",  }} value="Cancel" />
                 <input type="submit" style={{ gridColumn: "2", width: 100, justifySelf: "right" }} value="Register" />
 
             </form>
