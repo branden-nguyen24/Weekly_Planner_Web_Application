@@ -9,7 +9,7 @@
 6. enter 'npm install'
 7. enter 'npm start' to start up the website
 8. enter 'cd todo-backend' to go into the backend folder
-9. enter 'npm start' to start the backend
+9. enter 'node app.js' to start the backend
 
 ## Run Instructions
 1. Open a new page on your browser
