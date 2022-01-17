@@ -1,4 +1,5 @@
-# Weekly Planner Web Application !!
+# Weekly Planner Web Application
+A weekly planner web application that allows users to create and update their own personal to-do lists. The frontend was created with React and the global state was handled with Redux. React was chosen due to the various reusable components present in the weekly planner, allowing for a sleek web application to be made. The backend was implemented using Express, RestAPIs, and MongoDB that allows users to login/register accounts in addition to saving lists across sessions. 
 
 # Build/Run Instructions
 
